@@ -6,13 +6,22 @@ export default function App() {
   const [focusSubject, setFocusSubject] = useState(null);
   return (
     <View style={styles.container}>
+    
+    {/* ternary operator ? ( ) : ( )   */}
+
       {focusSubject ? (
         <Text>Here is where Im going to build a timer</Text>
+        
       ) : (
-        <Focus />
+
+        <Focus addSubject={setFocusSubject} />
+
       )}
-      
+
+      <Text>{focusSubject}</Text>
+
     </View>
+
   );
 }
 
