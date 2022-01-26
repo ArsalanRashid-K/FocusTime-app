@@ -14,7 +14,7 @@ export const Focus = ({ addSubject }) => {
           <TextInput
             style={{ flex: 1, marginRight: 20 }}
             onSubmitEditing={({ nativeEvent }) => {
-              setTmpItem;
+              setTmpItem(nativeEvent.text);
             }}
             
           />
