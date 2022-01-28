@@ -16,6 +16,9 @@ export default function App() {
         /* to do inline style || style={{margin:100}}   || this is the way 2 curly braces */       
         <Timer focusSubject={focusSubject}/>
       ) : (
+        /* so the focusSubject={focusSubject}= f={focusSubject} ..you can name it whatever u like and pass it as in timer
+       
+       */
         <Focus addSubject={setFocusSubject} />
       )}
          

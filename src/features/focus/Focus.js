@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     flex: 0.5,
-    padding: spacing.md,,
+    padding: spacing.md,
     justifyContent: 'center',
   },
   title: {
