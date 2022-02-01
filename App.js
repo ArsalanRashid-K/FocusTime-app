@@ -17,7 +17,6 @@ export default function App() {
         <Timer focusSubject={focusSubject}/>
       ) : (
         /* so the focusSubject={focusSubject}= f={focusSubject} ..you can name it whatever u like and pass it as in timer
-       
        */
         <Focus addSubject={setFocusSubject} />
       )}
