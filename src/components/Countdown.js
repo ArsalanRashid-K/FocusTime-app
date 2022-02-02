@@ -7,11 +7,14 @@ import { fontSizes, spacing } from '../utils/sizes';
 const minutesToMillis = (min) => min * 1000 * 60;
 const formatTime = (time) => (time < 10 ? `0${time}` : time);
 
-export const Countdown = ({ minutes = 1, isPaused  }) => {
-
-
+export const Countdown = ({ minutes = 0.1,
+ isPaused,
+  onProgress 
+  }) => {
   const interval = useRef(null);
-  
+
+  const [millis, setMillis] = useState(null);
+
   const countDown = () => {
     setMillis((time) => {
       if (time === 0) {
@@ -22,20 +25,30 @@ export const Countdown = ({ minutes = 1, isPaused  }) => {
       /** this just decreases the number so if the number in 50 it will decrease it by 1 and so on ... if it is 2 it will decrease it by 40-2 ... how long will it take to go from 40 to 38 will depend on setInterval time
        */
       //report the progress
+      onProgress(timeLeft / minutesToMillis(minutes));
       return timeLeft;
     });
   };
 
   useEffect(() => {
+    setMillis(minutesToMillis(minutes));
+  }, [minutes]);
+
+  useEffect(() => {
+    console.log(millis);
+  }, [millis]);
+
+  useEffect(() => {
     if (isPaused) {
+      if (interval.current) clearInterval(interval.current);
       return;
     }
+
     interval.current = setInterval(countDown, 1000);
     /** setInterval(countDown, 2000) make the clock run down by if set at 2000 1 sec will take 2 sec to go down.     */
     return () => clearInterval(interval.current);
+  },  return () => clearInterval(interval.current);
   }, [isPaused]);
-
-  const [millis, setMillis] = useState(minutesToMillis(minutes));
 
   const minute = Math.floor(millis / 1000 / 60);
   const seconds = Math.floor(millis / 1000) % 60;
