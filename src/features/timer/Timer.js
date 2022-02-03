@@ -1,14 +1,18 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { ProgressBar } from 'react-native-paper';
+import React, { useState } from "react";
+import { View, Text, StyleSheet } from "react-native";
+import { ProgressBar } from "react-native-paper";
 
-import { colors } from '../../utils/colors';
-import { fontSizes, spacing } from '../../utils/sizes';
-import { Countdown } from '../../components/Countdown';
-import { RoundedButton } from '../../components/RoundedButton';
-import { Timing } from './Timing';
+import { colors } from "../../utils/colors";
+import { fontSizes, spacing } from "../../utils/sizes";
+import { Countdown } from "../../components/Countdown";
+import { RoundedButton } from "../../components/RoundedButton";
+import { Timing } from "./Timing";
+
+import { useKeepAwake } from "expo-keep-awake";
 
 export const Timer = ({ focusSubject }) => {
+  useKeepAwake();
+
   /** focusSubject={focusSubject}   export const Timer = ({ focusSubject })
    * f={focusSubject}   export const Timer = ({ f }) this is also correct , and also input {f} everywhere  ex-> <Text style={styles.task}>{f}</Text>    */
 
@@ -69,21 +73,21 @@ const styles = StyleSheet.create({
   },
   title: {
     color: colors.white,
-    textAlign: 'center',
+    textAlign: "center",
   },
   task: {
     color: colors.white,
-    textAlign: 'center',
-    fontWeight: 'bold',
+    textAlign: "center",
+    fontWeight: "bold",
   },
   countdown: {
     flex: 0.5,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   buttonWrapper: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
