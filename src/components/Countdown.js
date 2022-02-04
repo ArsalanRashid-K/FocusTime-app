@@ -1,30 +1,29 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { useState, useEffect, useRef } from "react";
+import { View, Text, StyleSheet } from "react-native";
 
-import { colors } from '../utils/colors';
-import { fontSizes, spacing } from '../utils/sizes';
+import { colors } from "../utils/colors";
+import { fontSizes, spacing } from "../utils/sizes";
 
 const minutesToMillis = (min) => min * 1000 * 60;
 const formatTime = (time) => (time < 10 ? `0${time}` : time);
 
-export const Countdown = ({ minutes = 0.1,
- isPaused,
-  onProgress 
-  }) => {
+export const Countdown = ({ minutes = 0.1, isPaused, onProgress, onEnd }) => {
+  /** onProgress is sending the data to countodown in timer
+   */
   const interval = useRef(null);
-
   const [millis, setMillis] = useState(null);
 
   const countDown = () => {
     setMillis((time) => {
       if (time === 0) {
-        //do more stuf her
+        clearInterval(interval.current);
+        onEnd();
         return time;
       }
       const timeLeft = time - 1000;
       /** this just decreases the number so if the number in 50 it will decrease it by 1 and so on ... if it is 2 it will decrease it by 40-2 ... how long will it take to go from 40 to 38 will depend on setInterval time
        */
-      //report the progress
+
       onProgress(timeLeft / minutesToMillis(minutes));
       return timeLeft;
     });
@@ -35,19 +34,12 @@ export const Countdown = ({ minutes = 0.1,
   }, [minutes]);
 
   useEffect(() => {
-    console.log(millis);
-  }, [millis]);
-
-  useEffect(() => {
     if (isPaused) {
-      if (interval.current) clearInterval(interval.current);
       return;
     }
-
     interval.current = setInterval(countDown, 1000);
-    /** setInterval(countDown, 2000) make the clock run down by if set at 2000 1 sec will take 2 sec to go down.     */
+    /** setInterval(countDown, 2000) make the clock run down by if set at 2000 1 sec will take 2 sec to go down.*/
     return () => clearInterval(interval.current);
-  },  return () => clearInterval(interval.current);
   }, [isPaused]);
 
   const minute = Math.floor(millis / 1000 / 60);
@@ -64,16 +56,16 @@ export const Countdown = ({ minutes = 0.1,
 
 const styles = StyleSheet.create({
   text: {
-    textAlign: 'center',
+    textAlign: "center",
     color: colors.black,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     fontSize: fontSizes.xxxl,
     padding: spacing.md,
     backgroundColor: colors.skyblue,
 
     borderWidth: 0.5,
     borderRadius: 20,
-    overflow: 'hidden',
+    overflow: "hidden",
     /*margin and border radius are to be put in view not in text and . over flow :'hidden' is the most important as it show the border radius in ios apps*/
   },
   shadow: {
