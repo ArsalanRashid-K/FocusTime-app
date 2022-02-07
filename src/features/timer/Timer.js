@@ -46,6 +46,7 @@ export const Timer = ({ focusSubject }) => {
     setMinutes(DEFAULT_TIME);
     setProgress(1);
     setIsStarted(false);
+    onTimerEnd();
   };
 
   const changeTime = (min) => {
