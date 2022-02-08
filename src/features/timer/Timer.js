@@ -1,17 +1,17 @@
-import React, { useState } from "react";
-import { View, Text, StyleSheet, Vibration, Platform } from "react-native";
-import { Countdown } from "../../components/Countdown";
-import { RoundedButton } from "../../components/RoundedButton";
-import { ProgressBar } from "react-native-paper";
-import { Timing } from "./Timing";
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, Vibration, Platform } from 'react-native';
+import { Countdown } from '../../components/Countdown';
+import { RoundedButton } from '../../components/RoundedButton';
+import { ProgressBar } from 'react-native-paper';
+import { Timing } from './Timing';
 
-import { colors } from "../../utils/colors";
-import { fontSizes, spacing } from "../../utils/sizes";
-import { useKeepAwake } from "expo-keep-awake";
+import { colors } from '../../utils/colors';
+import { fontSizes, spacing } from '../../utils/sizes';
+import { useKeepAwake } from 'expo-keep-awake';
 
 const DEFAULT_TIME = 0.1;
 
-export const Timer = ({ focusSubject }) => {
+export const Timer = ({ focusSubject, onTimerEnd, clearSubject }) => {
   useKeepAwake();
 
   /** focusSubject={focusSubject}   export const Timer = ({ focusSubject })
@@ -22,7 +22,7 @@ export const Timer = ({ focusSubject }) => {
   const [progress, setProgress] = useState(1);
   //the progress here is 1 is the progress bar
 
-  onProgress = (progress) => {
+ const onProgress = (progress) => {
     setProgress(progress);
     /**onProgress =(pr)=>{setProgress(pr)}  trial name
      * this is getting its data from onPess={onProgress} or onProgress={onProgress}
@@ -33,7 +33,7 @@ export const Timer = ({ focusSubject }) => {
   };
 
   const vibrate = () => {
-    if (Platform.OS === "ios") {
+    if (Platform.OS === 'ios') {
       const interval = setInterval(() => Vibration.vibrate(5000), 1000);
       setTimeout(() => clearInterval(interval), 10000);
     } else {
@@ -96,6 +96,10 @@ export const Timer = ({ focusSubject }) => {
           <RoundedButton title="Start" onPress={() => setIsStarted(true)} />
         )}
       </View>
+
+      <View style={styles.clearSubject}>
+        <RoundedButton size={70} title="-" onPress={clearSubject} />
+      </View>
     </View>
   );
 };
@@ -106,23 +110,30 @@ const styles = StyleSheet.create({
   },
   title: {
     color: colors.white,
-    textAlign: "center",
+    textAlign: 'center',
   },
   task: {
     color: colors.white,
-    textAlign: "center",
-    fontWeight: "bold",
+    textAlign: 'center',
+    fontWeight: 'bold',
   },
   countdown: {
     flex: 0.5,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   buttonWrapper: {
     flex: 0.3,
-    flexDirection: "row",
+    flexDirection: 'row',
     padding: 15,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
+  clearSubject:{
+    paddingBottom:10,
+    margin:10,
+    paddingLeft:25,
+    
+  }
+  ,
 });

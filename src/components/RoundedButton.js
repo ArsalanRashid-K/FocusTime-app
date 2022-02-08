@@ -1,6 +1,7 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
-
+import { colors } from '../utils/colors';
+import { fontSizes, spacing } from '../utils/sizes';
 
 export const RoundedButton = ({
   style = {},
@@ -9,14 +10,11 @@ export const RoundedButton = ({
   ...props
 }) => {
   return (
-    
-    <TouchableOpacity style={[styles(size).radius, style]} onPress={props.onPress}>
-    {/* ToucableOpacity -> fades when you click on anything it is applied on to make it look it has been press, but it is not and cant not be pressed or submit . 
-    // onPress-> make the button pressable , with this the button know it has been pressed .. but not submitted anything */}
-          <Text style={[styles(size).text, textStyle]}>{props.title}</Text>
-         
+    <TouchableOpacity
+      style={[styles(size).radius, style]}
+      onPress={props.onPress}>
+      <Text style={[styles(size).text, textStyle]}>{props.title}</Text>
     </TouchableOpacity>
-    
   );
 };
 
@@ -25,6 +23,7 @@ const styles = (size) =>
     radius: {
       borderRadius: size / 2,
       width: size,
+   
 
       height: size,
       alignItems: 'center',
@@ -34,6 +33,8 @@ const styles = (size) =>
     },
     text: {
       color: 'white',
-      fontSize: 20,
+   
+     
+      fontSize: fontSizes.lg,
     },
   });

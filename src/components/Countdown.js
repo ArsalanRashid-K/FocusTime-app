@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useRef } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import React, { useState, useEffect, useRef } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 
-import { colors } from "../utils/colors";
-import { fontSizes, spacing } from "../utils/sizes";
+import { colors } from '../utils/colors';
+import { fontSizes, spacing } from '../utils/sizes';
 
 const minutesToMillis = (min) => min * 1000 * 60;
 const formatTime = (time) => (time < 10 ? `0${time}` : time);
@@ -17,14 +17,12 @@ export const Countdown = ({ minutes = 0.1, isPaused, onProgress, onEnd }) => {
     setMillis((time) => {
       if (time === 0) {
         clearInterval(interval.current);
-        onEnd();
         return time;
       }
       const timeLeft = time - 1000;
       /** this just decreases the number so if the number in 50 it will decrease it by 1 and so on ... if it is 2 it will decrease it by 40-2 ... how long will it take to go from 40 to 38 will depend on setInterval time
        */
 
-      onProgress(timeLeft / minutesToMillis(minutes));
       return timeLeft;
     });
   };
@@ -32,6 +30,13 @@ export const Countdown = ({ minutes = 0.1, isPaused, onProgress, onEnd }) => {
   useEffect(() => {
     setMillis(minutesToMillis(minutes));
   }, [minutes]);
+
+  useEffect(() => {
+    onProgress(millis / minutesToMillis(minutes));
+    if (millis === 0) {
+      onEnd();
+    }
+  }, [millis]);
 
   useEffect(() => {
     if (isPaused) {
@@ -56,16 +61,16 @@ export const Countdown = ({ minutes = 0.1, isPaused, onProgress, onEnd }) => {
 
 const styles = StyleSheet.create({
   text: {
-    textAlign: "center",
+    textAlign: 'center',
     color: colors.black,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     fontSize: fontSizes.xxxl,
     padding: spacing.md,
     backgroundColor: colors.skyblue,
 
     borderWidth: 0.5,
     borderRadius: 20,
-    overflow: "hidden",
+    overflow: 'hidden',
     /*margin and border radius are to be put in view not in text and . over flow :'hidden' is the most important as it show the border radius in ios apps*/
   },
   shadow: {
