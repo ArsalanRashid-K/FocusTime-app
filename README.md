@@ -3,7 +3,8 @@ A FocusTime Mobile App it is built with react native for both iOS and Android wh
 
 It has dedicated time interval to decide how long you want to focus on your work.
 
-<br/>
+<br/>[Focustime Screen Record-1-1.webm](https://user-images.githubusercontent.com/95489514/178455350-2b2da6d8-5503-4968-975d-efeee43524f4.webm)
+
 
 #
 
